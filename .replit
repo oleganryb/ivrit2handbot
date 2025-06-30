@@ -1,4 +1,4 @@
-entrypoint = "main.py"
+entrypoint = "ivrit2handbot/main.py"
 modules = ["python-3.11"]
 
 [nix]
