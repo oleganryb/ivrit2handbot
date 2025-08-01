@@ -2,13 +2,16 @@ from PIL import Image, ImageDraw, ImageFont
 import arabic_reshaper
 from bidi.algorithm import get_display
 
+
 def create_hebrew_image(text, output_path="output.png"):
     # Подготовка ивритского текста
     reshaped_text = arabic_reshaper.reshape(text)
     bidi_text = get_display(reshaped_text)
 
     # Настройки
-    font_path = "KtavYadCLM-MediumItalic.otf"
+    import os
+    font_path = os.path.join(os.path.dirname(__file__),
+                             "KtavYadCLM-MediumItalic.otf")
     font_size = 48
     max_width = 1000  # Максимальная ширина изображения
     padding = 50
@@ -47,7 +50,12 @@ def create_hebrew_image(text, output_path="output.png"):
     # Создание картинки
     image = Image.new("RGB", (width, height), "white")
     draw = ImageDraw.Draw(image)
-    draw.multiline_text((padding, padding), final_text, fill="black", font=font, align="right", spacing=10)
+    draw.multiline_text((padding, padding),
+                        final_text,
+                        fill="black",
+                        font=font,
+                        align="right",
+                        spacing=10)
 
     image.save(output_path)
     print(f"✅ Изображение сохранено как: {output_path}")

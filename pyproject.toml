@@ -6,9 +6,9 @@ authors = ["Your Name <you@example.com>"]
 requires-python = ">=3.11"
 dependencies = [
     "arabic-reshaper==3.0.0",
+    "flask==3.1.0",
     "openai==1.57.0",
     "pillow==11.0.0",
     "python-bidi==0.6.3",
     "python-dotenv>=1.1.1",
-    "python-telegram-bot>=22.2",
 ]
