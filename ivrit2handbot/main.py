@@ -108,9 +108,10 @@ from keep_alive import keep_alive
 import threading
 import os
 
-if name == "__main__":
+if __name__ == "__main__":
     # Запуск Flask-сервера для аптайма
     threading.Thread(target=keep_alive).start()
 
     print("🤖 Бот запущен и ждёт сообщений...")
     app.run_polling()
+
