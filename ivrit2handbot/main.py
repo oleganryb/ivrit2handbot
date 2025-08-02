@@ -1,7 +1,4 @@
 import os
-from keep_alive import keep_alive
-
-keep_alive()
 from dotenv import load_dotenv
 from pathlib import Path
 from telegram import Update, ReplyKeyboardMarkup, ReplyKeyboardRemove
@@ -106,6 +103,7 @@ conv_handler = ConversationHandler(
 app.add_handler(conv_handler)
 
 print("🤖 Бот запущен и ждёт сообщений...")
+
 
 import os
 
