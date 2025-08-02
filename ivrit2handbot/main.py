@@ -104,9 +104,13 @@ app.add_handler(conv_handler)
 
 print("🤖 Бот запущен и ждёт сообщений...")
 
-
+from keep_alive import keep_alive
+import threading
 import os
 
-if __name__ == "__main__":
+if name == "__main__":
+    # Запуск Flask-сервера для аптайма
+    threading.Thread(target=keep_alive).start()
+
     print("🤖 Бот запущен и ждёт сообщений...")
     app.run_polling()
