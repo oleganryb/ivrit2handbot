@@ -4,7 +4,7 @@ from bidi.algorithm import get_display
 
 def create_hebrew_image(text, output_path="output.png"):
     # Обработка ивритского текста (RTL)
-    bidi_text = get_display(text)  # reshape НЕ нужен для иврита
+    bidi_text = get_display(text)[::-1]  # reshape НЕ нужен для иврита
 
     # Путь к шрифту — надёжный (относительно этого файла)
     font_path = os.path.join(os.path.dirname(__file__), "KtavYadCLM-MediumItalic.otf")
@@ -49,3 +49,4 @@ def create_hebrew_image(text, output_path="output.png"):
 
     image.save(output_path)
     print(f"✅ Сохранено как: {output_path}")
+
