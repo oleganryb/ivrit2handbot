@@ -35,7 +35,7 @@ def create_hebrew_image(text, output_path="output.png"):
     lines.append(line.strip())
 
     # Собираем текст
-    final_text = "\n".join(lines[::-1])  # строки RTL сверху вниз
+    final_text = "\n".join(lines)  # строки RTL сверху вниз
 
     # Размер итогового изображения
     bbox = draw.multiline_textbbox((0, 0), final_text, font=font, spacing=10)
@@ -49,4 +49,5 @@ def create_hebrew_image(text, output_path="output.png"):
 
     image.save(output_path)
     print(f"✅ Сохранено как: {output_path}")
+
 
