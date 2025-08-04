@@ -8,7 +8,7 @@ def create_hebrew_image(text, output_path="output.png"):
     bidi_text = get_display(reshaped_text)
 
     # Настройки
-    font_path = "KtavYadCLM-MediumItalic.otf"
+    font_path = os.path.join(os.path.dirname(__file__), "KtavYadCLM-MediumItalic.otf")
     font_size = 48
     max_width = 1000  # Максимальная ширина изображения
     padding = 50
@@ -51,3 +51,4 @@ def create_hebrew_image(text, output_path="output.png"):
 
     image.save(output_path)
     print(f"✅ Изображение сохранено как: {output_path}")
+
