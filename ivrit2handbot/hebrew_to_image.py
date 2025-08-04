@@ -8,6 +8,10 @@ def create_hebrew_image(text, output_path="output.png"):
     reshaped_text = arabic_reshaper.reshape(text)
     bidi_text = get_display(reshaped_text)
 
+    # Отладка - вставляем вот сюда:
+    print("🧐 Используем шрифт:", font_path)
+    print("📜 Текст:", bidi_text)
+    
     # Настройки
     font_path = os.path.join(os.path.dirname(__file__), "KtavYadCLM-MediumItalic.otf")
     font_size = 48
@@ -55,3 +59,4 @@ def create_hebrew_image(text, output_path="output.png"):
 
     image.save(output_path)
     print(f"✅ Изображение сохранено как: {output_path}")
+
