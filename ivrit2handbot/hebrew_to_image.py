@@ -50,7 +50,7 @@ def create_hebrew_image(text, output_path="output.png"):
     # Создание картинки
     image = Image.new("RGB", (width, height), "white")
     draw = ImageDraw.Draw(image)
-    draw.multiline_text((padding, padding),
+    draw.multiline_text((width - padding, padding),
                         final_text,
                         fill="black",
                         font=font,
@@ -59,5 +59,6 @@ def create_hebrew_image(text, output_path="output.png"):
 
     image.save(output_path)
     print(f"✅ Изображение сохранено как: {output_path}")
+
 
 
