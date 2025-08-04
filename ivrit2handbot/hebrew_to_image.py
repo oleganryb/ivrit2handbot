@@ -1,37 +1,32 @@
 from PIL import Image, ImageDraw, ImageFont
 import arabic_reshaper
 from bidi.algorithm import get_display
-import os
 
 def create_hebrew_image(text, output_path="output.png"):
     # Подготовка ивритского текста
     reshaped_text = arabic_reshaper.reshape(text)
     bidi_text = get_display(reshaped_text)
 
-    # Отладка - вставляем вот сюда:
-    print("🧐 Используем шрифт:", font_path)
-    print("📜 Текст:", bidi_text)
-    
     # Настройки
-    font_path = os.path.join(os.path.dirname(__file__), "KtavYadCLM-MediumItalic.otf")
+    font_path = "KtavYadCLM-MediumItalic.otf"
     font_size = 48
-    max_width = 1000
+    max_width = 1000  # Максимальная ширина изображения
     padding = 50
-    spacing = 10
 
     font = ImageFont.truetype(font_path, font_size)
 
-    # Временный холст для замеров
+    # Создаем временный объект для замера
     dummy_img = Image.new("RGB", (1, 1))
     draw = ImageDraw.Draw(dummy_img)
 
-    # Разбивка на строки вручную
+    # Перенос строк вручную
     words = bidi_text.split()
     lines = []
     line = ""
     for word in words:
         test_line = line + word + " "
-        w = draw.textlength(test_line, font=font)
+        bbox = draw.textbbox((0, 0), test_line, font=font)
+        w = bbox[2] - bbox[0]
         if w <= max_width:
             line = test_line
         else:
@@ -39,24 +34,20 @@ def create_hebrew_image(text, output_path="output.png"):
             line = word + " "
     lines.append(line.strip())
 
-    # Размер изображения
-    line_heights = [font.getbbox(line)[3] - font.getbbox(line)[1] for line in lines]
-    text_height = sum(line_heights) + spacing * (len(lines) - 1)
-    width = max_width + padding * 2
+    # Итоговый текст
+    final_text = "\n".join(lines[::-1])
+
+    # Размер итогового изображения
+    bbox = draw.multiline_textbbox((0, 0), final_text, font=font, spacing=10)
+    text_width = bbox[2] - bbox[0]
+    text_height = bbox[3] - bbox[1]
+    width = text_width + padding * 2
     height = text_height + padding * 2
 
-    # Создание изображения
+    # Создание картинки
     image = Image.new("RGB", (width, height), "white")
     draw = ImageDraw.Draw(image)
-
-    # Отрисовка текста справа налево
-    y = padding
-    for line in lines:
-        line_width = draw.textlength(line, font=font)
-        x = width - padding - line_width
-        draw.text((x, y), line, fill="black", font=font)
-        y += font_size + spacing
+    draw.multiline_text((padding, padding), final_text, fill="black", font=font, align="right", spacing=10)
 
     image.save(output_path)
     print(f"✅ Изображение сохранено как: {output_path}")
-
